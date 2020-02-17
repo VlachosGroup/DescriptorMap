@@ -92,6 +92,9 @@ def organize_excel_inputs(in_path='./input.xlsx'):
                                      'analysis.qs').as_posix()
     out_dict['paths'] = paths
 
+    # Log folder
+    Path(paths['log_path']).mkdir(exist_ok=True, parents=True)
+
     '''Add extra parameters for job'''
     n_col = [row['n'] for row in out_dict['descriptors']]
     sampling = out_dict['job']['sampling']
