@@ -125,7 +125,8 @@ def get_flow_rates(reactor, mol_frac_in, mol_frac_out, mass_frac_in,
     mol_flow_rates['out'] = mol_frac_out.mul(mol_flow_rates['out_tot'], axis=0) # mol/s
     return (mol_flow_rates, mass_flow_rates)
 
-def plot_contour(path_out, x, y, z, title, x_label, y_label):
+def plot_contour(path_out, x, y, z, title, x_label, y_label, hover_label,
+                 x_lit=None, y_lit=None, lit_label=None):
     """Creates a Contour plot using Plotly
     
     Parameters
@@ -146,13 +147,41 @@ def plot_contour(path_out, x, y, z, title, x_label, y_label):
             y axis label
     """
     layout={'title': {'text': title},
-            'xaxis': {'title': x_label},
-            'yaxis': {'title': y_label}}
-    fig = go.Figure(go.Contour(x=x, y=y, z=z), layout=layout)
+            'xaxis': {'title': x_label,
+                      'tickformat': '0.2f',
+                      'ticks': 'outside',
+                      'mirror': True,
+                      'showline': True},
+            'yaxis': {'title': y_label,
+                      'tickformat': '0.2f',
+                      'ticks': 'outside',
+                      'mirror': True,
+                      'showline': True,
+                      'linewidth': 2.},
+            'legend': {'x': 0., 'y': 1}}
+    fig = go.Figure(go.Contour(x=x, y=y, z=z, hovertext=hover_label),
+                    layout=layout)
+
+    if x_lit is not None:
+        fig.add_trace(go.Scatter(x=x_lit, y=y_lit, hovertext=lit_label,
+                                 mode='markers+text',
+                                 text=lit_label,
+                                 name='Literature',
+                                 textposition="bottom center",
+                                 legendgroup='Literature',
+                                 showlegend=True,
+                                 textfont={'size': 15,
+                                           'color': 'white'},
+                                 marker={'size': 10,
+                                         'color': 'rgba(255, 255, 255, 1.)',
+                                         'line': {'width': 2,
+                                                  'color': 'rgba(0, 0, 0, 1.)'}}))
+    # fig.update_layout(legend_orientation="h")
     fig.write_html(path_out)
 
 def plot_density(path_out, jobs_data, desc_labels, conv_data, selec_data,
-                 yield_data, reactant_name, product_name):
+                 yield_data, reactant_name, product_name, hover_label,
+                 lit_data=None):
     """Plots a density map normalized to x axis slices
 
     Parameters
@@ -173,43 +202,65 @@ def plot_density(path_out, jobs_data, desc_labels, conv_data, selec_data,
             Keyword arguments for `numpy.histogram2d`_
     .. _`numpy.histogram2d`: https://numpy.org/doc/1.18/reference/generated/numpy.histogram2d.html
     """
-    fig = make_subplots(rows=len(desc_labels), cols=3)
+    fig = make_subplots(cols=len(desc_labels), rows=3)
     for i, desc_label in enumerate(desc_labels, start=1):
         # Get x data
         x = jobs_data[desc_label]
+        QoI_data = (conv_data, selec_data, yield_data)
+        QoI_labels = ('{} Conv'.format(reactant_name),
+                      '{} Selectivity'.format(product_name),
+                      '{} Yield'.format(product_name))
 
-        # Conversion plot
-        conv_trace_name = 'Conv<br />vs.<br />{}'.format(desc_label)
-        conv_trace = go.Histogram2dContour(x=x, y=conv_data,
-                                           name=conv_trace_name,
-                                           showscale=False)
-        fig.add_trace(conv_trace, row=i, col=1)
-        fig.update_xaxes(title_text='{} (eV)'.format(desc_label),
-                         row=i, col=1)
-        fig.update_yaxes(title_text='Conversion of {}'.format(reactant_name),
-                         row=i, col=1)
+        for j, (y_data, y_label) in enumerate(zip(QoI_data, QoI_labels),
+                                              start=1):
+            # Since legends are grouped, only display one toggle option
+            if i == 1 and j == 1:
+                showlegend = True
+            else:
+                showlegend = False
 
-        # Selectivity plot
-        selec_trace_name = 'Selec<br />vs.<br />{}'.format(desc_label)
-        selec_trace = go.Histogram2dContour(x=x, y=selec_data,
-                                            name=selec_trace_name,
-                                            showscale=False)        
-        fig.add_trace(selec_trace, row=i, col=2)
-        fig.update_xaxes(title_text='{} (eV)'.format(desc_label),
-                         row=i, col=2)
-        fig.update_yaxes(title_text='Selectivity of {}'.format(product_name),
-                         row=i, col=2)
+            trace_name = '{}<br />vs.<br />{}'.format(y_label, desc_label)
+            hist_trace = go.Histogram2dContour(x=x, y=y_data,
+                                               name=trace_name,
+                                               showscale=False,
+                                               colorscale='Blues')
+            scatter_trace = go.Scatter(x=x, y=y_data, mode='markers',
+                                       hovertext=hover_label,
+                                       name='MKM Data',
+                                       marker={'size': 3,
+                                               'color': 'rgba(0., 0., 0., 0.5)'},
+                                       legendgroup='MKM Data',
+                                       showlegend=showlegend)
+            fig.add_traces(data=[hist_trace, scatter_trace],
+                           cols=(i, i), rows=(j, j))
 
-        # Yield plot
-        yield_trace_name = 'Yield<br />vs.<br />{}'.format(desc_label)
-        yield_trace = go.Histogram2dContour(x=x, y=yield_data,
-                                            name=yield_trace_name,
-                                            showscale=False)        
-        fig.add_trace(yield_trace, row=i, col=3)
-        fig.update_xaxes(title_text='{} (eV)'.format(desc_label),
-                         row=i, col=3)
-        fig.update_yaxes(title_text='Yield of {}'.format(product_name),
-                         row=i, col=3)
+            # Update axes
+            fig.update_xaxes(title_text='{} (eV)'.format(desc_label),
+                             col=i, row=j, ticks='outside', tickformat='.2f',
+                             showline=True, mirror=True, linewidth=1.,
+                             linecolor='black')
+            fig.update_yaxes(tickformat='.2f', showline=True, mirror=True,
+                             row=j, col=i, linewidth=1., linecolor='black')
+
+        # Add Y Label
+        if i == 1:
+            for j, y_label in enumerate(QoI_labels, start=1):
+                fig.update_yaxes(title_text=y_label,
+                                 col=i, row=j, ticks='outside')
+
+        # Add literature data
+        # if lit_data is not None:
+        #     x_lit = lit_data[desc_label]
+        #     for j in range(1, 4):
+        #         for name, x_lit_point in x_lit.iteritems():
+        #             fig.add_shape({'type': 'line',
+        #                            'xref': 'x',
+        #                            'yref': 'paper',
+        #                            'x0': x_lit_point,
+        #                            'x1': x_lit_point,
+        #                            'y0': ,
+        #                            'y1': 1,
+        #                            }, col=i, row=j)
 
     fig.write_html(path_out)
 
