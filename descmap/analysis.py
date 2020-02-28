@@ -313,7 +313,12 @@ def get_single_fractions(paths, filename, index):
     for path in paths:
         full_path = os.path.join(path, filename)
         fractions = pd.read_csv(full_path, header=0)
-        del fractions['t(s)']
+        # Delete time and space coordinates
+        for field in ('t(s)', 'z(m)'):
+            try:
+                del fractions[field]
+            except KeyError:
+                pass        
         initial_fractions.append(fractions.iloc[0])
         final_fractions.append(fractions.iloc[-1])
     initial_fractions = pd.DataFrame(initial_fractions, index=index)

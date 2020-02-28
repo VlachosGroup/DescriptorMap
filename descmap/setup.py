@@ -37,7 +37,7 @@ def initialize_shomate_species(shomates_data):
         shomate_species_dict[name] = Shomate(**ind_shomate_species_data)
     return shomate_species_dict
 
-def initialize_ga_species(ga_data, statmech_species, descriptors,
+def initialize_ga_species(ga_data, descriptors=None, statmech_species=None,
                           ref_species=None):
     ga_species_dict = {}
     for ind_ga_species_data in ga_data:
@@ -57,7 +57,8 @@ def initialize_ga_species(ga_data, statmech_species, descriptors,
 
         if 'reaction' in ind_ga_species_data:
             ga_reaction = Reaction.from_string(ind_ga_species_data['reaction'],
-                                               species=statmech_species)
+                                               species={**ga_species_dict,
+                                                        **statmech_species})
 
             # If piecewise, check if descriptor falls within value
             if 'low_val' in ind_ga_species_data:
