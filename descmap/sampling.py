@@ -96,9 +96,13 @@ def get_lhs_map(descriptors_data):
         # Individual descriptor mapping
         desc_map = []
         name = descriptor_data['name']
+        low_val = descriptor_data['low_value']
+        high_val = descriptor_data['high_value']
+        val_range = high_val - low_val
         for j, val in enumerate(lhs_array[:, i]):
-            desc_point = DescPoint(name=name, i=j, val=val, field_len=field_len,
-                                   sampling='lhs')
+            out_val = val*val_range + low_val
+            desc_point = DescPoint(name=name, i=j, val=out_val,
+                                   field_len=field_len, sampling='lhs')
             desc_map.append(desc_point)
         lhs_map.append(desc_map)
     return lhs_map
