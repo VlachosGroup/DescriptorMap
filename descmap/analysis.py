@@ -1,5 +1,6 @@
 import os
 
+import numpy as np
 import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
@@ -126,7 +127,8 @@ def get_flow_rates(reactor, mol_frac_in, mol_frac_out, mass_frac_in,
     return (mol_flow_rates, mass_flow_rates)
 
 def plot_contour(path_out, x, y, z, title, x_label, y_label, hover_label,
-                 x_lit=None, y_lit=None, lit_label=None):
+                 x_lit=None, y_lit=None, lit_label=None, zmin_cutoff=None,
+                 zmax_cutoff=None):
     """Creates a Contour plot using Plotly
     
     Parameters
@@ -145,6 +147,12 @@ def plot_contour(path_out, x, y, z, title, x_label, y_label, hover_label,
             x axis label
         y_label : str
             y axis label
+        zmin_cutoff : float, optional
+            Minimum cutoff z value. The minimum of ``z`` will be used if it is
+            higher than ``zmin_cutoff`` or if ``zmin_cutoff`` is not specified.
+        zmax_cutoff : float, optional
+            Maximum cutoff z value. The maximum of ``z`` will be used if it is
+            higher than ``zmax_cutoff`` of ir ``zmax_cutoff`` is not specified.
     """
     layout={'title': {'text': title},
             'xaxis': {'title': x_label,
@@ -159,8 +167,24 @@ def plot_contour(path_out, x, y, z, title, x_label, y_label, hover_label,
                       'showline': True,
                       'linewidth': 2.},
             'legend': {'x': 0., 'y': 1}}
-    fig = go.Figure(go.Contour(x=x, y=y, z=z, hovertext=hover_label),
-                    layout=layout)
+
+    # Process zmin_cutoff
+    temp_zmin = np.floor(z.min())
+    if zmin_cutoff is None:
+        zmin_cutoff = temp_zmin
+    elif zmin_cutoff < temp_zmin:
+        zmin_cutoff = temp_zmin
+    # Process zmax_cutoff
+    temp_zmax = np.ceil(z.max())
+    if zmax_cutoff is None:
+        zmax_cutoff = temp_zmax
+    elif zmax_cutoff > temp_zmax:
+        zmax_cutoff = temp_zmax
+
+    fig = go.Figure(go.Contour(x=x, y=y, z=z, hovertext=hover_label,
+                               zmin=zmin_cutoff, zmax=zmax_cutoff),
+                    layout=layout) 
+
 
     if x_lit is not None:
         fig.add_trace(go.Scatter(x=x_lit, y=y_lit, hovertext=lit_label,
@@ -171,11 +195,11 @@ def plot_contour(path_out, x, y, z, title, x_label, y_label, hover_label,
                                  legendgroup='Literature',
                                  showlegend=True,
                                  textfont={'size': 15,
-                                           'color': 'white'},
+                                           'color': 'black'},
                                  marker={'size': 10,
-                                         'color': 'rgba(255, 255, 255, 1.)',
+                                         'color': 'white',
                                          'line': {'width': 2,
-                                                  'color': 'rgba(0, 0, 0, 1.)'}}))
+                                                  'color': 'black'}}))
     # fig.update_layout(legend_orientation="h")
     fig.write_html(path_out)
 
