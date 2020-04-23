@@ -1,7 +1,7 @@
 import numpy as np
 
 from vunits import constants as c
-from pmutt.statmech.lsr import LSR
+from pmutt.statmech.lsr import LSR, ExtendedLSR
 from pmutt.empirical.nasa import Nasa
 from pmutt.empirical.shomate import Shomate
 from pmutt.empirical.references import Reference, References
@@ -74,9 +74,12 @@ def initialize_ga_species(ga_data, descriptors=None, statmech_species=None,
                     continue
 
             ref_name = name.replace('(S)', '(PT)')
-            ga_lsr = LSR(slope=ind_ga_species_data['slope'],
-                         intercept=ind_ga_species_data['intercept'],
-                         reaction=ga_reaction)
+            # ga_lsr = LSR(slope=ind_ga_species_data['slope'],
+            #              intercept=ind_ga_species_data['intercept'],
+            #              reaction=ga_reaction)
+            ga_lsr = ExtendedLSR(slopes=ind_ga_species_data['slopes'],
+                                 intercept=ind_ga_species_data['intercept'],
+                                 reactions=ga_reactions)
             BE_m = ga_lsr.get_H(T=T_ref, units='kcal/mol')
             BE_ref = ref_species[ref_name].get_H(T=T_ref, units='kcal/mol')
             delta_HoRT = (BE_m - BE_ref)/c.R('kcal/mol/K')/T_ref
@@ -120,6 +123,48 @@ def initialize_lsr_species(lsr_data, statmech_species, references=None):
         lsr_species_dict[name] = Nasa.from_model(references=references,
                                                  **ind_lsr_species_data)
     return lsr_species_dict
+
+def initialize_extended_lsr_species(extended_lsr_data,
+                                    statmech_species,
+                                    references=None):
+    lsr_species_dict = {}
+    for ind_lsr_species_data in extended_lsr_data:
+        name = ind_lsr_species_data['name']
+
+        reactions = []
+        for reaction_str in ind_lsr_species_data['reactions']:
+            reaction = Reaction.from_string(reaction_str=reaction_str,
+                                            species=statmech_species)
+            reactions.append(reaction)
+        ind_lsr_species_data['reactions'] = reactions
+
+        surf_species = []
+        if 'surf_species' in ind_lsr_species_data:
+            for ind_surf_species in ind_lsr_species_data['surf_species']:
+                # Create the surface species
+                try:
+                    new_species = statmech_species[ind_surf_species]
+                except KeyError:
+                    new_species = 0.
+                surf_species.append(new_species)
+            ind_lsr_species_data['surf_species'] = surf_species
+
+        gas_species = []
+        if 'gas_species' in ind_lsr_species_data:
+            for ind_gas_species in ind_lsr_species_data['gas_species']:
+                # Create the gasace species
+                try:
+                    new_species = statmech_species[ind_gas_species]
+                except KeyError:
+                    new_species = 0.
+                gas_species.append(new_species)
+            ind_lsr_species_data['gas_species'] = gas_species
+
+        '''Create a NASA polynomial from the data'''
+        lsr_species_dict[name] = Nasa.from_model(references=references,
+                                                 **ind_lsr_species_data)
+    return lsr_species_dict
+    
 
 def initialize_bep_species(beps_data):
     beps_dict = {bep_data['name']: BEP(**bep_data) for bep_data in beps_data}

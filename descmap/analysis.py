@@ -40,7 +40,7 @@ def get_reactor_inputs(reactor_inputs, phases, units):
     .. _`Quantity`: https://vlachosgroup.github.io/vunits/api/quantity/quantity.html#quantity-class
     """
     # Create unit quantities
-    default_units = Units().to_CTI_dict()
+    default_units = Units().to_cti_dict()
     unit_qty = {}
     for unit_type in default_units.keys():
         unit_type = unit_type.replace('_unit', '')
@@ -202,6 +202,8 @@ def plot_contour(path_out, x, y, z, title, x_label, y_label, hover_label,
                                                   'color': 'black'}}))
     # fig.update_layout(legend_orientation="h")
     fig.write_html(path_out)
+    fig.write_image(path_out.replace('html', 'png'),
+                    scale=10, width=6, height=8)
 
 def plot_density(path_out, jobs_data, desc_labels, conv_data, selec_data,
                  yield_data, reactant_name, product_name, hover_label,
@@ -287,6 +289,9 @@ def plot_density(path_out, jobs_data, desc_labels, conv_data, selec_data,
         #                            }, col=i, row=j)
 
     fig.write_html(path_out)
+    fig.write_image(path_out.replace('html', 'png'),
+                    scale=10, width=8, height=14)
+
 
 def get_fractions(paths, omkm_path):
     """Returns the coverages, gas fractions and mole fractions associated with
