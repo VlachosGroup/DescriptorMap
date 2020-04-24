@@ -55,10 +55,18 @@ def initialize_ga_species(ga_data, descriptors=None, statmech_species=None,
         HoRT = ga_species.get_HoRT(T=T_ref)
         SoR = ga_species.get_SoR(T=T_ref)
 
-        if 'reaction' in ind_ga_species_data:
-            ga_reaction = Reaction.from_string(ind_ga_species_data['reaction'],
-                                               species={**ga_species_dict,
-                                                        **statmech_species})
+        # TODO Generalize this for Extended LSRs and LSRs
+        # if 'reaction' in ind_ga_species_data:
+        if 'reactions' in ind_ga_species_data:
+            ga_reactions = []
+            for reaction_str in ind_ga_species_data['reactions']:
+                reaction = Reaction.from_string(reaction_str,
+                                                species={**ga_species_dict,
+                                                         **statmech_species})
+                ga_reactions.append(reaction)
+            # ga_reaction = Reaction.from_string(ind_ga_species_data['reaction'],
+            #                                    species={**ga_species_dict,
+            #                                             **statmech_species})
 
             # If piecewise, check if descriptor falls within value
             if 'low_val' in ind_ga_species_data:
@@ -80,6 +88,7 @@ def initialize_ga_species(ga_data, descriptors=None, statmech_species=None,
             ga_lsr = ExtendedLSR(slopes=ind_ga_species_data['slopes'],
                                  intercept=ind_ga_species_data['intercept'],
                                  reactions=ga_reactions)
+            
             BE_m = ga_lsr.get_H(T=T_ref, units='kcal/mol')
             BE_ref = ref_species[ref_name].get_H(T=T_ref, units='kcal/mol')
             delta_HoRT = (BE_m - BE_ref)/c.R('kcal/mol/K')/T_ref
