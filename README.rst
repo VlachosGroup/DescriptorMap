@@ -1,12 +1,22 @@
 DescriptorMap
 =============
 
-Generates volcano plots using an arbitrary number of descriptors.
+Generates volcano curves for heterogeneous catalysis using empirical and
+semi-empirical approaches coupled with microkinetic modeling. 
 
 Developers
 ----------
 
 -  Jonathan Lym (jlym@udel.edu)
+
+Dependencies
+------------
+
+- Python3
+- `pMuTT`_: Generates input files for OpenMKM
+- `OpenMKM`_: Runs Microkinetic models
+- `Scikit-Learn`_: Choose descriptors based on DFT data
+- `Plotly`_: Plots interactive volcano curves
 
 License
 -------
@@ -20,3 +30,8 @@ Funding
 This material is based upon work supported by the Department of Energy's Office 
 of Energy Efficient and Renewable Energy's Advanced Manufacturing Office under 
 Award Number DE-EE0007888-9.5.
+
+.. _`pMuTT`: https://vlachosgroup.github.io/pMuTT/
+.. _`OpenMKM`: https://vlachosgroup.github.io/openmkm/
+.. _`Scikit-Learn`: https://scikit-learn.org/stable/
+.. _`Plotly`: https://plotly.com/
