@@ -74,7 +74,7 @@ def organize_excel_inputs(in_path='./inputs.xlsx'):
     sampling = out_dict['fields']['sampling']
     out_dict['fields']['n_jobs'] = get_tot_job_num(n_col=n_col, sampling=sampling)
     out_dict['fields']['desc_shape'] = get_descriptors_shape(n_col=n_col,
-                                                          sampling=sampling)
+                                                             sampling=sampling)
     out_dict['fields']['n_concurrent'] = int(np.min([out_dict['fields']['n_jobs'],
                                                   out_dict['fields']['n_concurrent']]))
     return out_dict

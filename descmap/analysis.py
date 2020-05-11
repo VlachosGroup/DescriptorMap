@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 import pandas as pd
+from scipy import interpolate
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
@@ -349,21 +350,23 @@ def plot_1d_volcano(path_out, x, y, title, x_label, y_label, hover_label,
                     layout=layout)
     fig.update_yaxes(range=[ymin_cutoff, ymax_cutoff])
 
-    # if x_lit is not None:
-    #     fig.add_trace(go.Scatter(x=x_lit, y=y_lit, hovertext=lit_label,
-    #                              mode='markers+text',
-    #                              text=lit_label,
-    #                              name='Literature',
-    #                              textposition="bottom center",
-    #                              legendgroup='Literature',
-    #                              showlegend=True,
-    #                              textfont={'size': 15,
-    #                                        'color': 'black'},
-    #                              marker={'size': 10,
-    #                                      'color': 'white',
-    #                                      'line': {'width': 2,
-    #                                               'color': 'black'}}))
-    # fig.update_layout(legend_orientation="h")
+    if x_lit is not None:
+        interp_fn = interpolate.interp1d(x=x, y=y)
+        y_lit = interp_fn(x_lit)
+        fig.add_trace(go.Scatter(x=x_lit, y=y_lit, hovertext=lit_label,
+                                 mode='markers+text',
+                                 text=lit_label,
+                                 name='Literature',
+                                 textposition="top right",
+                                 legendgroup='Literature',
+                                 showlegend=True,
+                                 textfont={'size': 15,
+                                           'color': 'black'},
+                                 marker={'size': 10,
+                                         'color': 'white',
+                                         'line': {'width': 2,
+                                                  'color': 'black'}}))
+        fig.update_layout(legend_orientation="h")
     fig.write_html(path_out)
     fig.write_image(path_out.replace('html', 'png'),
                     scale=10, width=6, height=8)
