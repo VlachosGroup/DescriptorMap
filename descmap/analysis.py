@@ -292,6 +292,83 @@ def plot_density(path_out, jobs_data, desc_labels, conv_data, selec_data,
     fig.write_image(path_out.replace('html', 'png'),
                     scale=10, width=8, height=14)
 
+def plot_1d_volcano(path_out, x, y, title, x_label, y_label, hover_label,
+                    x_lit=None, lit_label=None, ymin_cutoff=None,
+                    ymax_cutoff=None):
+    """Creates a Contour plot using Plotly
+    
+    Parameters
+    ----------
+        path_out : str
+            Name of file (ending with .html extension)
+        x : list
+            x data to plot
+        y : list
+            y data to plot
+        title : str
+            Title of plot
+        x_label : str
+            x axis label
+        y_label : str
+            y axis label
+        ymin_cutoff : float, optional
+            Minimum cutoff y value. The minimum of ``y`` will be used if it is
+            higher than ``ymin_cutoff`` or if ``ymin_cutoff`` is not specified.
+        ymax_cutoff : float, optional
+            Maximum cutoff y value. The maximum of ``y`` will be used if it is
+            higher than ``ymax_cutoff`` of ir ``ymax_cutoff`` is not specified.
+    """
+    layout={'title': {'text': title},
+            'xaxis': {'title': x_label,
+                      'tickformat': '0.2f',
+                      'ticks': 'outside',
+                      'mirror': True,
+                      'showline': True},
+            'yaxis': {'title': y_label,
+                      'tickformat': '0.2f',
+                      'ticks': 'outside',
+                      'mirror': True,
+                      'showline': True,
+                      'linewidth': 2.},
+            'legend': {'x': 0., 'y': 1}}
+
+    # Process zmin_cutoff
+    temp_ymin = np.floor(y.min())
+    if ymin_cutoff is None:
+        ymin_cutoff = temp_ymin
+    elif ymin_cutoff < temp_ymin:
+        ymin_cutoff = temp_ymin
+    # Process zmax_cutoff
+    temp_ymax = np.ceil(y.max())
+    if ymax_cutoff is None:
+        ymax_cutoff = temp_ymax
+    elif ymax_cutoff > temp_ymax:
+        ymax_cutoff = temp_ymax
+
+    fig = go.Figure(go.Scatter(x=x, y=y, hovertext=hover_label, mode='lines'),
+                    layout=layout)
+    fig.update_yaxes(range=[ymin_cutoff, ymax_cutoff])
+
+    # if x_lit is not None:
+    #     fig.add_trace(go.Scatter(x=x_lit, y=y_lit, hovertext=lit_label,
+    #                              mode='markers+text',
+    #                              text=lit_label,
+    #                              name='Literature',
+    #                              textposition="bottom center",
+    #                              legendgroup='Literature',
+    #                              showlegend=True,
+    #                              textfont={'size': 15,
+    #                                        'color': 'black'},
+    #                              marker={'size': 10,
+    #                                      'color': 'white',
+    #                                      'line': {'width': 2,
+    #                                               'color': 'black'}}))
+    # fig.update_layout(legend_orientation="h")
+    fig.write_html(path_out)
+    fig.write_image(path_out.replace('html', 'png'),
+                    scale=10, width=6, height=8)
+
+    
 
 def get_fractions(paths, omkm_path):
     """Returns the coverages, gas fractions and mole fractions associated with
