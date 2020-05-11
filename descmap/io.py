@@ -55,54 +55,55 @@ def organize_excel_inputs(in_path='./input.xlsx'):
         'reactor': read_excel(in_path, sheet_name='reactor')[0],
         'units': read_excel(in_path, sheet_name='units')[0],
         'descriptors': read_excel(in_path, sheet_name='descriptors'),
-        'job': read_excel(in_path, sheet_name='job')[0],
+        'fields': read_excel(in_path, sheet_name='fields')[0],
+        # 'job': read_excel(in_path, sheet_name='job')[0],
         'analysis': read_excel(in_path, sheet_name='analysis')[0],
         'phases': read_excel(in_path, sheet_name='phases'),
         'id': {}
     }
 
-    '''Add path data'''
-    paths = read_excel(in_path, sheet_name='paths')[0]
-    # For Excel sheet
-    paths['excel_in'] = in_path
-    paths['json_in'] = Path(in_path).with_suffix('.json').as_posix()
+    # '''Add path data'''
+    # paths = read_excel(in_path, sheet_name='paths')[0]
+    # # For Excel sheet
+    # paths['excel_in'] = in_path
+    # paths['json_in'] = Path(in_path).with_suffix('.json').as_posix()
 
-    # For setup
-    Path(paths['setup_path']).mkdir(exist_ok=True, parents=True)
-    paths['setup_python_in'] = Path(paths['template_path'], 'python',
-                                    'setup.py').as_posix()
-    paths['setup_python_out'] = Path(paths['setup_path'], 'setup.py').as_posix()
-    paths['setup_sub_in'] = Path(paths['template_path'], 'sub', 'setup.qs').as_posix()
-    paths['setup_sub_out'] = Path(paths['setup_path'], 'setup.qs').as_posix()
+    # # For setup
+    # Path(paths['setup_path']).mkdir(exist_ok=True, parents=True)
+    # paths['setup_python_in'] = Path(paths['template_path'], 'python',
+    #                                 'setup.py').as_posix()
+    # paths['setup_python_out'] = Path(paths['setup_path'], 'setup.py').as_posix()
+    # paths['setup_sub_in'] = Path(paths['template_path'], 'sub', 'setup.qs').as_posix()
+    # paths['setup_sub_out'] = Path(paths['setup_path'], 'setup.qs').as_posix()
 
-    # For OMKM
-    Path(paths['omkm_path']).mkdir(exist_ok=True, parents=True)
-    paths['omkm_sub_in'] = Path(paths['template_path'], 'sub', 'JA_omkm.qs').as_posix()
-    paths['omkm_sub_out'] = Path(paths['omkm_path'], 'JA_omkm.qs').as_posix()
+    # # For OMKM
+    # Path(paths['omkm_path']).mkdir(exist_ok=True, parents=True)
+    # paths['omkm_sub_in'] = Path(paths['template_path'], 'sub', 'JA_omkm.qs').as_posix()
+    # paths['omkm_sub_out'] = Path(paths['omkm_path'], 'JA_omkm.qs').as_posix()
 
-    # For analysis
-    Path(paths['analysis_path']).mkdir(exist_ok=True, parents=True)
-    paths['analysis_python_in'] = Path(paths['template_path'], 'python',
-                                       'analysis.py').as_posix()
-    paths['analysis_python_out'] = Path(paths['analysis_path'],
-                                        'analysis.py').as_posix()
-    paths['analysis_sub_in'] = Path(paths['template_path'], 'sub', 
-                                    'analysis.qs').as_posix()
-    paths['analysis_sub_out'] = Path(paths['analysis_path'],
-                                     'analysis.qs').as_posix()
-    out_dict['paths'] = paths
+    # # For analysis
+    # Path(paths['analysis_path']).mkdir(exist_ok=True, parents=True)
+    # paths['analysis_python_in'] = Path(paths['template_path'], 'python',
+    #                                    'analysis.py').as_posix()
+    # paths['analysis_python_out'] = Path(paths['analysis_path'],
+    #                                     'analysis.py').as_posix()
+    # paths['analysis_sub_in'] = Path(paths['template_path'], 'sub', 
+    #                                 'analysis.qs').as_posix()
+    # paths['analysis_sub_out'] = Path(paths['analysis_path'],
+    #                                  'analysis.qs').as_posix()
+    # out_dict['paths'] = paths
 
     # Log folder
-    Path(paths['log_path']).mkdir(exist_ok=True, parents=True)
+    Path('./log').mkdir(exist_ok=True, parents=True)
 
-    '''Add extra parameters for job'''
+    '''Add extra parameters for fields'''
     n_col = [row['n'] for row in out_dict['descriptors']]
-    sampling = out_dict['job']['sampling']
-    out_dict['job']['n_jobs'] = get_tot_job_num(n_col=n_col, sampling=sampling)
-    out_dict['job']['desc_shape'] = get_descriptors_shape(n_col=n_col,
+    sampling = out_dict['fields']['sampling']
+    out_dict['fields']['n_jobs'] = get_tot_job_num(n_col=n_col, sampling=sampling)
+    out_dict['fields']['desc_shape'] = get_descriptors_shape(n_col=n_col,
                                                           sampling=sampling)
-    out_dict['job']['n_concurrent'] = int(np.min([out_dict['job']['n_jobs'],
-                                                  out_dict['job']['n_concurrent']]))
+    out_dict['fields']['n_concurrent'] = int(np.min([out_dict['fields']['n_jobs'],
+                                                  out_dict['fields']['n_concurrent']]))
     return out_dict
 
 def get_rel_paths(paths, start, suffix=''):
