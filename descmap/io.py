@@ -59,7 +59,7 @@ def organize_excel_inputs(in_path='./inputs.xlsx'):
         # 'job': read_excel(in_path, sheet_name='job')[0],
         'analysis': read_excel(in_path, sheet_name='analysis')[0],
         'phases': read_excel(in_path, sheet_name='phases'),
-        'options': read_excel(in_path, sheet_name='options')[0],
+        # 'options': read_excel(in_path, sheet_name='options')[0],
         'id': {}
     }
 
