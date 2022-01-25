@@ -8,6 +8,7 @@ Developers
 ----------
 
 -  Jonathan Lym (jlym@udel.edu)
+-  Xue Zong (xzong@udel.edu)
 
 Dependencies
 ------------
