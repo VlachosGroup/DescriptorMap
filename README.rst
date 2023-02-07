@@ -3,8 +3,6 @@ Descriptor-Based Microkinetic Analyais Package (DescMAP)
 
 The Descriptor-Based Microkinetic Analysis Package (DescMAP) is a Python library developed by the Vlachos Research Group at the University of Delaware. This code was developed to automate feature selection and volcano curve generation for heterogeneous catalysis using empirical and semi-empirical approaches coupled with microkinetic modeling. Inputting data via spreadsheets and controlling program behavior via template files increases flexibility and supported capabilities.
 
-![logo](/docs/DescMAP_logo.png)
-
 Developers
 ----------
 
