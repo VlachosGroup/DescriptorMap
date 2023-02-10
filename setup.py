@@ -10,7 +10,7 @@ import setuptools
 
 # Import the lengthy rich-text README as the package's long
 # description:
-with open('README.rst', 'r') as fh:
+with open('README.md', 'r') as fh:
 	long_description = fh.read()
 
 setuptools_info = {
