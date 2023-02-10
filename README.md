@@ -1,4 +1,4 @@
-Descriptor-Based Microkinetic Analyais Package (DescMAP) =============
+# Descriptor-Based Microkinetic Analyais Package (DescMAP)
 
 The **Desc**riptor-Based **M**icrokinetic **A**nalysis **P**ackage
 (DescMAP) is a Python library developed by the Vlachos Research Group at
@@ -9,14 +9,20 @@ modeling. Inputting data via spreadsheets and controlling program
 behavior via template files increases flexibility and supported
 capabilities.
 
-![image](docs/DescMAP_logo.png){.align-center width="400px"}
+![image](docs/DescMAP_logo.png)
 
-# Developers
+## Installation
+
+```bash
+$ pip install descmap
+```
+
+## Developers
 
 -   Jonathan Lym (<jlym@udel.edu>)
 -   Xue Zong (<xzong@udel.edu>)
 
-# Dependencies
+## Dependencies
 
 -   Python3
 -   [pMuTT](https://vlachosgroup.github.io/pMuTT/): Generates input
@@ -27,12 +33,12 @@ capabilities.
     based on DFT data
 -   [Plotly](https://plotly.com/): Plots interactive volcano curves
 
-# License
+## License
 
 This project is licensed under the MIT License - see the LICENSE.md file
 for details.
 
-# Funding
+## Funding
 
 This material is based upon work supported by the Department of
 Energy\'s Office of Energy Efficient and Renewable Energy\'s Advanced
