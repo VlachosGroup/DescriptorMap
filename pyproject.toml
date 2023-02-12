@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Automatic feature selection and volcano curve generation."
 authors = ["Jonathon Lym", "Xue Zong"]
 license = "MIT"
-readme = "README.rst"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"

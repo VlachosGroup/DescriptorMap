@@ -2,14 +2,15 @@
 
 The **Desc**riptor-Based **M**icrokinetic **A**nalysis **P**ackage
 (DescMAP) is a Python library developed by the Vlachos Research Group at
-the University of Delaware. This code was developed to automate feature
+the University of Delaware. This code was developed to automate descriptor
 selection and volcano curve generation for heterogeneous catalysis using
 empirical and semi-empirical approaches coupled with microkinetic
-modeling. Inputting data via spreadsheets and controlling program
+modeling. Both electronic and geometric descriptors are supported.
+Inputting data via spreadsheets and controlling program
 behavior via template files increases flexibility and supported
 capabilities.
 
-![image](docs/DescMAP_logo.png)
+<img src="https://github.com/VlachosGroup/DescriptorMap/blob/4e1c2f117bd67b8c8f93739d9538c093dfdca7fd/docs/DescMAP_logo.png" width="400" height="150">
 
 ## Installation
 
@@ -19,7 +20,7 @@ $ pip install descmap
 
 ## Developers
 
--   Jonathan Lym (<jlym@udel.edu>)
+-   Jonathan Lym (<jonathanlym@gmail.com>)
 -   Xue Zong (<xzong@udel.edu>)
 
 ## Dependencies
@@ -37,6 +38,12 @@ $ pip install descmap
 
 This project is licensed under the MIT License - see the LICENSE.md file
 for details.
+
+## Contributing
+If you have any suggestion or find a bug, please post to our Issues page on GitHub.
+
+## Questions
+If you have any question or run into any issue, please post to our Issues page on GitHub.
 
 ## Funding
 
