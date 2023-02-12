@@ -39,6 +39,12 @@ $ pip install descmap
 This project is licensed under the MIT License - see the LICENSE.md file
 for details.
 
+## Contributing
+If you have any suggestion or find a bug, please post to our Issues page on GitHub.
+
+## Questions
+If you have any question or run into any issue, please post to our Issues page on GitHub.
+
 ## Funding
 
 This material is based upon work supported by the Department of
