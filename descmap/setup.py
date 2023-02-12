@@ -6,6 +6,7 @@ from pmutt.empirical.nasa import Nasa
 from pmutt.empirical.shomate import Shomate
 from pmutt.empirical.references import Reference, References
 from pmutt.reaction import Reaction
+from pmutt.reaction import ChemkinReaction, Reactions
 from pmutt.mixture.cov import PiecewiseCovEffect
 from pmutt.omkm.reaction import SurfaceReaction, BEP
 from pgradd.GroupAdd.Library import GroupLibrary
@@ -358,4 +359,26 @@ def initialize_reactions(reactions_data, species):
     """
     reactions = [SurfaceReaction.from_string(species=species, **reaction_data) \
                  for reaction_data in reactions_data]
+    return reactions
+
+def initialize_chemkin_reactions(reactions_data, species):
+    """Initialize reactions
+
+    Parameters
+    ----------
+        reactions_data : list of dict
+            Reactions data. Each element of the list correspond to
+            the keyword arguments that can initialize a
+            `pMuTT ChemkinReaction`_ object using the ``from_string`` method.
+        species : dict of pMuTT Model objects
+            Species corresponding to the reaction strings in ``reaction_data``
+    Returns
+    -------
+        reactions : list of `pMuTT ChemkinReaction`_ objects
+            Surface reactions that can be written to Chemkin format
+
+    .. _`pMuTT ChemkinReaction`: https://vlachosgroup.github.io/pMuTT/api/reactions/reactions/pmutt.reaction.ChemkinReaction.html#pmutt.reaction.ChemkinReaction
+    """
+    reactions = Reactions([ChemkinReaction.from_string(species=species, **reaction_data) \
+                           for reaction_data in reactions_data])
     return reactions
