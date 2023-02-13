@@ -1,3 +1,4 @@
+"""Functionality related to MKM kinetics analysis using geometric descriptors"""
 import os
 import re
 import numpy as np

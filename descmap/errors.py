@@ -1,6 +1,4 @@
-
-
-
+"""Functionality to raise sampling errors"""
 def raise_invalid_sampling_method(sampling):
     """Raises ValueError due to invalid sample method being specified.
     

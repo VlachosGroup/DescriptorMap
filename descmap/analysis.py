@@ -1,5 +1,5 @@
+"""Functionality related to MKM kinetics analysis using electronic descriptors"""
 import os
-
 import numpy as np
 import pandas as pd
 from scipy import interpolate
@@ -10,7 +10,6 @@ from sklearn.metrics import mean_squared_error
 from matplotlib.patches import Ellipse
 from matplotlib import transforms
 from scipy.stats import t as student_t
-
 from vunits import constants as c
 from vunits.quantity import Quantity
 from pmutt.cantera.units import Units

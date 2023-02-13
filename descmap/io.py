@@ -1,12 +1,9 @@
 """Input/Output functionality"""
-
 import os
 import json
 from pathlib import Path
-
 import numpy as np
 from pmutt.io.excel import read_excel
-
 from descmap.job import get_descriptors_shape, get_tot_job_num
 
 def write_out_file(in_path, out_path, fields):

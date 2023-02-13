@@ -1,12 +1,9 @@
 """Functionality related to job submissions"""
-
 import os
 import platform
 import subprocess
-
 import numpy as np
 from pmutt.io.excel import read_excel
-
 from descmap.errors import raise_invalid_sampling_method
 
 def get_descriptors_shape(n_col, sampling):
