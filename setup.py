@@ -10,12 +10,12 @@ import setuptools
 
 # Import the lengthy rich-text README as the package's long
 # description:
-with open('README.md', 'r') as fh:
+with open('README.rst', 'r') as fh:
 	long_description = fh.read()
 
 setuptools_info = {
 	'name': 'DescMap',
-	'version': '0.0.1',
+	'version': '0.1.0',
 	'author': 'Vlachos Research Group',
 	'author_email': 'vlachos@udel.edu',
 	'description': 'Descriptor Map (DescMap)',

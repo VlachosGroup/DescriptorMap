@@ -11,6 +11,14 @@ Welcome to DescMAP's documentation!
 
 .. toctree::
    :maxdepth: 1
+   :caption: Getting Started
+
+   user/introduction
+   user/installation
+   user/overview
+
+.. toctree::
+   :maxdepth: 1
    :caption: API Reference
 
    api/setup
@@ -20,6 +28,19 @@ Welcome to DescMAP's documentation!
    api/errors
    api/analysis
    api/analysis_geometric
+
+.. toctree::
+   :maxdepth: 1
+   :caption: ETC
+
+   etc/acknowledgements
+   etc/about
+
+.. toctree::
+   :caption: Useful Links
+
+   View Source Code (GitHub) <https://github.com/VlachosGroup/DescriptorMap>
+   Report an Issue <https://github.com/VlachosGroup/DescriptorMap/issues>
 
 Indices and tables
 ==================
