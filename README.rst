@@ -11,7 +11,7 @@ descriptors are supported. Inputting data via spreadsheets and
 controlling program behavior via template files increases flexibility
 and supported capabilities.
 
-.. image:: docs/logos/descmap_logo.png
+.. image:: https://github.com/VlachosGroup/DescriptorMap/blob/32b25da138e320cd3c4d38083b563f30e0d80d3f/docs/logos/descmap_logo.png
     :width: 400px
 
 Installation
