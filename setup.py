@@ -15,13 +15,13 @@ with open('README.rst', 'r') as fh:
 
 setuptools_info = {
 	'name': 'DescMap',
-	'version': '0.1.0',
+	'version': '1.0.0',
 	'author': 'Vlachos Research Group',
 	'author_email': 'vlachos@udel.edu',
 	'description': 'Descriptor Map (DescMap)',
 	'long_description': long_description,
 	'zip_safe': True,
-	'url': 'https://github.com/VlachosGroup/descmap',
+	'url': 'https://github.com/VlachosGroup/DescriptorMap',
 	'packages': setuptools.find_packages(),
 	'package_data': {'':['*.xlsx', '*.json']},
 	'install_requires': [],

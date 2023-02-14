@@ -15,13 +15,14 @@ and supported capabilities.
     :width: 400px
 
 Documentation
-------------
+-------------
 
-See our `documentation page <https://descriptormap.readthedocs.io/en/latest/>`__ for docstrings and more details.
+See our `documentation page <https://descriptormap.readthedocs.io/en/latest/>`__ for 
+docstrings and more details.
 
 
 Getting Started
-------------
+---------------
 
 1. Install using pip (see documentation for full instructions)
 
@@ -48,15 +49,19 @@ Dependencies
 -  `Scipy <https://www.scipy.org/>`__: Used for curve fitting
 -  `Scikit-Learn <https://scikit-learn.org/stable/>`__: Choose
    descriptors based on DFT data
--  `RDKit <https://www.rdkit.org/docs/Overview.html>`__: Used for constructing feasible chemical structures required by pGradd
+-  `RDKit <https://www.rdkit.org/docs/Overview.html>`__: Used for 
+   constructing feasible chemical structures required by pGradd
 -  `Matplotlib <https://matplotlib.org/>`__: Used for generating plots
 -  `Plotly <https://plotly.com/>`__: Plots interactive volcano curves
--  `Chart-studio <https://chart-studio.plotly.com/feed/#/>`__: Provide utilities for interfacing with Plotly's Chart Studio service
+-  `Chart-studio <https://chart-studio.plotly.com/feed/#/>`__: Provide utilities 
+   for interfacing with Plotly's Chart Studio service
 -  `pMuTT <https://vlachosgroup.github.io/pMuTT/>`__: Generates input files for OpenMKM
--  `pGradd <https://github.com/VlachosGroup/PythonGroupAdditivity/>`__: Estimate thermodynamic properties of molecules
+-  `pGradd <https://github.com/VlachosGroup/PythonGroupAdditivity/>`__: Estimate 
+   thermodynamic properties of molecules
 -  `VUnits <https://vlachosgroup.github.io/vunits/>`__: Unit conversion and constants
 -  `xlsxwriter <https://xlsxwriter.readthedocs.io/>`__: Create Excel xlsx files
--  `pyDOE <https://pythonhosted.org/pyDOE/>`__: Experimental design package to provide sampling method
+-  `pyDOE <https://pythonhosted.org/pyDOE/>`__: Experimental design package to 
+   provide sampling method
 
 
 License
