@@ -112,3 +112,4 @@ sampling_map = {
     'lhs': get_lhs_map
 }
 """dict: Keys represent sampling type. Values represent function handles."""
+

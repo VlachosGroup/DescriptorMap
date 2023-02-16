@@ -1,4 +1,4 @@
-"""Functionality related to MKM kinetics analysis using geometric descriptors"""
+"""Functionality to process Chemkin outputs"""
 import os
 import re
 import numpy as np
@@ -7,14 +7,6 @@ from scipy import stats
 from pathlib import Path
 import xlsxwriter
 import pmutt.constants as cons
-
-# Import packages for plotting
-from plotly.subplots import make_subplots
-import chart_studio.plotly as py
-import plotly.graph_objects as go
-import plotly.express as px
-import matplotlib
-import matplotlib.pyplot as plt
 
 '''Get QoI from Chemkin outputs'''
 def get_tof(main_path, jobs_name):
@@ -309,146 +301,8 @@ def get_Eapp(tof_list, temp_list, jobs_name):
         app_ea = (-slope)*cons.R(units='kcal/mol/K')
         ea_list.append(app_ea)
     return ea_list
-
-'''Plot QoI'''
-def plot_1d(path_out, x, y, title, x_label, y_label, tickformat,
-            ymin_cutoff = None, ymax_cutoff = None):
-    """Creates a volcano plot using Plotly
     
-    Parameters
-    ----------
-        path_out : str
-            Name of file (ending with .html extension)
-        x : list
-            x data to plot
-        y : list
-            y data to plot
-        title : str
-            Title of plot
-        x_label : str
-            x axis label
-        y_label : str
-            y axis label
-        ymin_cutoff : float, optional
-            Minimum cutoff y value. The minimum of ``y`` will be used if it is
-            higher than ``ymin_cutoff`` or if ``ymin_cutoff`` is not specified.
-        ymax_cutoff : float, optional
-            Maximum cutoff y value. The maximum of ``y`` will be used if it is
-            higher than ``ymax_cutoff`` of ir ``ymax_cutoff`` is not specified.
-        tickformat: str
-            Specify number of decimals to keep in ticks
-    """
-    layout={'title': {'text': title},
-            'xaxis': {'title': x_label,
-                      'tickformat': tickformat,
-                      'ticks': 'outside',
-                      'mirror': True,
-                      'showline': True},
-            'yaxis': {'title': y_label,
-                      'tickformat': tickformat,
-                      'ticks': 'outside',
-                      'mirror': True,
-                      'showline': True,
-                      'linewidth': 2.},
-            'legend': {'x': 0., 'y': 1}}
-    fig = go.Figure(go.Scatter(x=x, y=y, mode='markers+text',
-                               marker=dict(color='red', size=12),
-                               text=y, textposition='bottom center',
-                               textfont=dict(size=12)),
-                               layout=layout)
-    fig.update_yaxes(range = [ymin_cutoff, ymax_cutoff])
-    fig.write_html(path_out)
-    fig.write_image(path_out.replace('html', 'png'),
-                    scale=10, width=6, height=8)
-    fig.write_image(path_out.replace('html', 'svg'),
-                    scale=10, width=6, height=8)
-
-def plot_ols(path_out, x, y, title, x_label, y_label, tickformat,
-            ymin_cutoff = None, ymax_cutoff = None):
-    """Creates ordinary least squares (OLS) regression plot using Plotly
-    
-    Parameters
-    ----------
-        path_out : str
-            Name of file (ending with .html extension)
-        x : list
-            x data to plot
-        y : list
-            y data to plot
-        title : str
-            Title of plot
-        x_label : str
-            x axis label
-        y_label : str
-            y axis label
-        ymin_cutoff : float, optional
-            Minimum cutoff y value. The minimum of ``y`` will be used if it is
-            higher than ``ymin_cutoff`` or if ``ymin_cutoff`` is not specified.
-        ymax_cutoff : float, optional
-            Maximum cutoff y value. The maximum of ``y`` will be used if it is
-            higher than ``ymax_cutoff`` of ir ``ymax_cutoff`` is not specified.
-        tickformat: str
-            Specify number of decimals to keep in ticks
-    """
-    layout={'title': {'text': title},
-            'xaxis': {'title': x_label,
-                      'tickformat': tickformat,
-                      'ticks': 'outside',
-                      'mirror': True,
-                      'showline': True},
-            'yaxis': {'title': y_label,
-                      'tickformat': tickformat,
-                      'ticks': 'outside',
-                      'mirror': True,
-                      'showline': True,
-                      'linewidth': 2.},
-            'legend': {'x': 0., 'y': 1}}
-    
-    fig = go.Figure(px.scatter(x=x, y=y, trendline='ols', trendline_color_override='red'))
-    fig.update_yaxes(range = [ymin_cutoff, ymax_cutoff])
-    fig.update_layout(layout)
-    fig.write_html(path_out)
-    fig.write_image(path_out.replace('html', 'png'),
-                    scale=10, width=6, height=8)
-    fig.write_image(path_out.replace('html', 'svg'),
-                    scale=10, width=6, height=8)
-
-def plot_coverage(jobs_name, cov_dict_list, species_list, path):
-    """Creates surface coverage plots using Matplotlib
-    
-    Parameters
-    ----------
-        jobs_name : list
-            List of descriptor names
-        cov_dict_list : list
-            List of dictionaries containing surface species
-        species_list : list
-            List of surface species
-        path : str
-            Path to save output figures
-    """
-    n_jobs = len(jobs_name)
-    
-    for i in range(n_jobs):
-        gcn = jobs_name[i]
-        cov_dict = cov_dict_list[i]
-        
-        plt.figure()
-        
-        for j in species_list:
-            spe_cov = cov_dict[j]
-            r_time = cov_dict['Time (s)']
-            
-            if max(spe_cov) >= 1e-5:    # only plot species with coverage larger than 1e-5
-                plt.plot(r_time, spe_cov, label = j)
-        
-        gcn_string = f'{gcn:.3f}'
-        plt.legend(loc = 'best')
-        plt.xlabel('Reaction Time (s)')
-        plt.ylabel('Surface Coverage (ML)')
-        plt.savefig(path + 'GCN{}_coverage.png'.format(gcn_string), transparent = False)
-
-'''Write results to output excel'''
+"""Functionality to write results for Chemkin models"""
 def write_model_output(main_path, desc_name, jobs_name, output_path, inputs):
     """Write Chemkin outputs to Excel
     
@@ -564,4 +418,3 @@ def write_Eapp(main_path, jobs_name, output_path):
         Eapp_sub_df = pd.DataFrame(data = Eapp_sub_dict)
         Eapp_sub_df.to_excel(writer, sheet_name = 'GCN={}'.format(gcn_string))
     writer.save()
-    
