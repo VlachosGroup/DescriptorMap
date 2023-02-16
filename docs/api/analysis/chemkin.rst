@@ -3,6 +3,6 @@ descmap.analysis.chemkin
 ==========================
 
 
-.. automodule:: descmap.analysis.chemkin
+.. currentmodule:: descmap.analysis
     :members: 
     

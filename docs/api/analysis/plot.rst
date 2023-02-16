@@ -3,6 +3,6 @@ descmap.analysis.plot
 ==========================
 
 
-.. automodule:: descmap.analysis.plot
+.. automodule:: descmap.analysis
     :members: 
     
