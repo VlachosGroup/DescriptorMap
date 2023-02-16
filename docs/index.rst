@@ -18,7 +18,7 @@ Welcome to DescMAP's documentation!
    user/overview
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: API Reference
 
    api/selection
@@ -27,7 +27,9 @@ Welcome to DescMAP's documentation!
    api/job
    api/io
    api/errors
-   api/analysis
+   api/analysis/openmkm
+   api/analysis/chemkin
+   api/analysis/plot
 
 .. toctree::
    :maxdepth: 1
