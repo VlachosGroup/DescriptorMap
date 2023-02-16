@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "descmap"
-version = "0.1.0"
+version = "1.0.0"
 description = "Automatic feature selection and volcano curve generation."
-authors = ["Jonathon Lym", "Xue Zong"]
+authors = ["Xue Zong", "Jonathon Lym"]
 license = "MIT"
 readme = "README.rst"
 
