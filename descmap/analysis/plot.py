@@ -365,6 +365,56 @@ def plot_1d_volcano(path_out, x, y, title, x_label, y_label, hover_label,
     fig.write_image(path_out.replace('html', 'svg'),
                     scale=10, width=6, height=8)
 
+def plot_1d_simple(path_out, x, y, title, x_label, y_label, ticketformat,
+                   ymin_cutoff = None, ymax_cutoff = None):
+    """Creates a simple 1d volcano plot using Plotly
+    
+    Parameters
+    ----------
+        path_out : str
+            Name of file (ending with .html extension)
+        x : list
+            x data to plot
+        y : list
+            y data to plot
+        title : str
+            Title of plot
+        x_label : str
+            x axis label
+        y_label : str
+            y axis label
+        ymin_cutoff : float, optional
+            Minimum cutoff y value. The minimum of ``y`` will be used if it is
+            higher than ``ymin_cutoff`` or if ``ymin_cutoff`` is not specified.
+        ymax_cutoff : float, optional
+            Maximum cutoff y value. The maximum of ``y`` will be used if it is
+            higher than ``ymax_cutoff`` of ir ``ymax_cutoff`` is not specified.
+    """
+    layout={'title': {'text': title},
+            'xaxis': {'title': x_label,
+                      'tickformat': ticketformat,
+                      'ticks': 'outside',
+                      'mirror': True,
+                      'showline': True},
+            'yaxis': {'title': y_label,
+                      'tickformat': ticketformat,
+                      'ticks': 'outside',
+                      'mirror': True,
+                      'showline': True,
+                      'linewidth': 2.},
+            'legend': {'x': 0., 'y': 1}}
+    fig = go.Figure(go.Scatter(x=x, y=y, mode='markers+text',
+                               marker=dict(color='red', size=12),
+                               text=y, textposition='bottom center',
+                               textfont=dict(size=12)),
+                               layout=layout)
+    fig.update_yaxes(range = [ymin_cutoff, ymax_cutoff])
+    fig.write_html(path_out)
+    fig.write_image(path_out.replace('html', 'png'),
+                    scale=10, width=6, height=8)
+    fig.write_image(path_out.replace('html', 'svg'),
+                    scale=10, width=6, height=8)
+
 def plot_ols(path_out, x, y, title, x_label, y_label, tickformat,
             ymin_cutoff = None, ymax_cutoff = None):
     """Creates ordinary least squares (OLS) regression plot using Plotly
