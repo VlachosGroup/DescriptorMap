@@ -11,7 +11,7 @@ Welcome to DescMAP's documentation!
 
 .. toctree::
    :maxdepth: 1
-   :caption: Getting Started
+   :caption: User documentation
 
    user/introduction
    user/installation
