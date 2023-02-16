@@ -1,8 +1,8 @@
 ==========================
-descmap.analysis
+descmap.analysis.chemkin
 ==========================
 
 
-.. automodule:: descmap.analysis
+.. automodule:: descmap.analysis.chemkin
     :members: 
     

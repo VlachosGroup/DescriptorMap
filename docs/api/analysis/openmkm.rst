@@ -1,8 +1,8 @@
 ==========================
-descmap.analysis_geometric
+descmap.analysis.openmkm
 ==========================
 
 
-.. automodule:: descmap.analysis_geometric
+.. automodule:: descmap.analysis.openmkm
     :members: 
     
