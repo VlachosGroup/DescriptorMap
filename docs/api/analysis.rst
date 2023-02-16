@@ -1,5 +1,5 @@
 ==========================
-descmap.analysis.openmkm
+descmap.analysis
 ==========================
 
 
