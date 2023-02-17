@@ -106,6 +106,7 @@ def initialize_ga_species(ga_data, descriptors=None, statmech_species=None,
             the ``name`` attribute is the key.
             
     .. _`pMuTT Nasa`: https://vlachosgroup.github.io/pMuTT/api/empirical/nasa/pmutt.empirical.nasa.Nasa.html
+    .. _`pMuTT StatMech`: https://vlachosgroup.github.io/pMuTT/api/statmech/statmech.html
     """
     ga_species_dict = {}
     for ind_ga_species_data in ga_data:
@@ -204,6 +205,7 @@ def initialize_lsr_species(lsr_data, statmech_species, references=None):
             where the ``name`` attribute is the key
 
     .. _`pMuTT LSR`: https://vlachosgroup.github.io/pMuTT/api/statmech/elec/pmutt.statmech.lsr.LSR.html
+    .. _`pMuTT StatMech`: https://vlachosgroup.github.io/pMuTT/api/statmech/statmech.html
     .. _`pMuTT Nasa`: https://vlachosgroup.github.io/pMuTT/api/empirical/nasa/pmutt.empirical.nasa.Nasa.html
     .. _`pMuTT References`: https://vlachosgroup.github.io/pMuTT/api/empirical/references/pmutt.empirical.references.References.html
     """
@@ -259,6 +261,7 @@ def initialize_extended_lsr_species(extended_lsr_data,
 
     .. _`pMuTT ExtendedLSR`: https://vlachosgroup.github.io/pMuTT/api/statmech/elec/pmutt.statmech.lsr.ExtendedLSR.html
     .. _`pMuTT Nasa`: https://vlachosgroup.github.io/pMuTT/api/empirical/nasa/pmutt.empirical.nasa.Nasa.html
+    .. _`pMuTT StatMech`: https://vlachosgroup.github.io/pMuTT/api/statmech/statmech.html
     .. _`pMuTT References`: https://vlachosgroup.github.io/pMuTT/api/empirical/references/pmutt.empirical.references.References.html
     """
     lsr_species_dict = {}
