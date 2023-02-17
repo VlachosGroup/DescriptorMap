@@ -44,23 +44,23 @@ Dependencies
 ------------
 
 -  Python >= 3.9
--  `Numpy <http://www.numpy.org/>`__: Used for vector and matrix operations
--  `Pandas <https://pandas.pydata.org/>`__: Used to import data from Excel or CSV files
--  `Scipy <https://www.scipy.org/>`__: Used for curve fitting
--  `Scikit-Learn <https://scikit-learn.org/stable/>`__: Choose
+-  `Numpy <http://www.numpy.org/>`__ >= 1.24.2: Used for vector and matrix operations
+-  `Pandas <https://pandas.pydata.org/>`__ >= 1.5.3: Used to import data from Excel or CSV files
+-  `Scipy <https://www.scipy.org/>`__ >= 1.10.0: Used for curve fitting
+-  `Scikit-Learn <https://scikit-learn.org/stable/>`__ >= 1.2.1: Choose
    descriptors based on DFT data
--  `RDKit <https://www.rdkit.org/docs/Overview.html>`__: Used for 
+-  `RDKit <https://www.rdkit.org/docs/Overview.html>`__ >= 2022.9.4: Used for 
    constructing feasible chemical structures required by pGradd
--  `Matplotlib <https://matplotlib.org/>`__: Used for generating plots
--  `Plotly <https://plotly.com/>`__: Plots interactive volcano curves
--  `Chart-studio <https://chart-studio.plotly.com/feed/#/>`__: Provide utilities 
+-  `Matplotlib <https://matplotlib.org/>`__ >= 3.6.3: Used for generating plots
+-  `Plotly <https://plotly.com/>`__ >= 5.13.0: Plots interactive volcano curves
+-  `Chart-studio <https://chart-studio.plotly.com/feed/#/>`__ >= 1.1.0: Provide utilities 
    for interfacing with Plotly's Chart Studio service
--  `pMuTT <https://vlachosgroup.github.io/pMuTT/>`__: Generates input files for OpenMKM
--  `pGradd <https://github.com/VlachosGroup/PythonGroupAdditivity/>`__: Estimate 
+-  `pMuTT <https://vlachosgroup.github.io/pMuTT/>`__ >= 1.3.2: Generates input files for OpenMKM
+-  `pGradd <https://github.com/VlachosGroup/PythonGroupAdditivity/>`__ >= 2.9.5: Estimate 
    thermodynamic properties of molecules
--  `VUnits <https://vlachosgroup.github.io/vunits/>`__: Unit conversion and constants
--  `xlsxwriter <https://xlsxwriter.readthedocs.io/>`__: Create Excel xlsx files
--  `pyDOE <https://pythonhosted.org/pyDOE/>`__: Experimental design package to 
+-  `VUnits <https://vlachosgroup.github.io/vunits/>`__ >= 0.0.4: Unit conversion and constants
+-  `xlsxwriter <https://xlsxwriter.readthedocs.io/>`__ >= 3.0.8: Create Excel xlsx files
+-  `pyDOE <https://pythonhosted.org/pyDOE/>`__ >= 0.3.8: Experimental design package to 
    provide sampling method
 
 
