@@ -27,9 +27,7 @@ Welcome to DescMAP's documentation!
    api/job
    api/io
    api/errors
-   api/analysis/openmkm
-   api/analysis/chemkin
-   api/analysis/plot
+   api/analysis
 
 .. toctree::
    :maxdepth: 1
