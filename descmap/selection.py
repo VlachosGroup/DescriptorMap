@@ -202,3 +202,13 @@ def get_lsr_results(X, best_comb):
                   'intercept': final_lin_reg_model.intercept_}
     final_df = pd.DataFrame(data = final_data, index = y_species)
     return final_df
+
+def write_lsr_results(final_df):
+    """Write intercepts and slopes to excel for future use
+    
+    Parameters
+    ----------
+        final_df : pandas DataFrame object
+            Intercepts and slopes for each species
+    """
+    final_df.to_excel('lsr_results.xlsx')
