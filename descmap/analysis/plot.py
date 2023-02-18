@@ -1,5 +1,6 @@
 """Functionality to plot interactive graphs"""
 import os
+import numpy as np
 from pathlib import Path
 import chart_studio.plotly as py
 from plotly.subplots import make_subplots
