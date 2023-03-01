@@ -1,4 +1,4 @@
-Descriptor-Based Microkinetic Analyais Package (DescMAP)
+Descriptor-Based Microkinetic Analysis Package (DescMAP)
 ========================================================
 
 The **Desc**\ riptor-Based **M**\ icrokinetic **A**\ nalysis
