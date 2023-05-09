@@ -1,4 +1,4 @@
-Descriptor-Based Microkinetic Analysis Package (DescMAP)
+Automated Descriptor Selection, Volcano Curve Generation, and Active Site Determination Using the DescMAP Software
 ========================================================
 
 The **Desc**\ riptor-Based **M**\ icrokinetic **A**\ nalysis
@@ -36,8 +36,8 @@ Getting Started
 Developers
 ----------
 
--  Jonathan Lym (jonathanlym@gmail.com)
 -  Xue Zong (xzong@udel.edu)
+-  Jonathan Lym (jonathanlym@gmail.com)
 
 
 Dependencies
